@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🌙 Lyra Chef</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0f0c29; color: #fff; margin: 0; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; }
+    h1 { color: #c0c0c0; }
+    textarea { width: 100%; height: 200px; font-family: monospace; background: #1a1733; color: #fff; border: 1px solid #444; padding: 10px; }
+    button { background: #302b63; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin: 5px; }
+    button:hover { background: #4a4680; }
+    .output { background: #1a1733; padding: 15px; margin-top: 10px; white-space: pre-wrap; font-family: monospace; border: 1px solid #444; }
+    .tool { margin-bottom: 30px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌙 Lyra Chef</h1>
+    <p>A cosmic Swiss Army knife for data. Starting small, growing incrementally.</p>
+    
+    <div class="tool">
+      <h2>JSON Viewer & Formatter</h2>
+      <textarea id="jsonInput" placeholder="Paste JSON here..."></textarea>
+      <button onclick="formatJSON()">Format & Validate</button>
+      <button onclick="minifyJSON()">Minify</button>
+      <div id="jsonOutput" class="output" style="display:none;"></div>
+    </div>
+  </div>
+
+  <script>
+    function formatJSON() {
+      const input = document.getElementById('jsonInput').value;
+      const output = document.getElementById('jsonOutput');
+      try {
+        const parsed = JSON.parse(input);
+        output.textContent = JSON.stringify(parsed, null, 2);
+        output.style.display = 'block';
+      } catch (e) {
+        output.textContent = 'Invalid JSON: ' + e.message;
+        output.style.display = 'block';
+      }
+    }
+
+    function minifyJSON() {
+      const input = document.getElementById('jsonInput').value;
+      const output = document.getElementById('jsonOutput');
+      try {
+        const parsed = JSON.parse(input);
+        output.textContent = JSON.stringify(parsed);
+        output.style.display = 'block';
+      } catch (e) {
+        output.textContent = 'Invalid JSON: ' + e.message;
+        output.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
+
+    <div class="tool">
+      <h2>List to CSV</h2>
+      <textarea id="listInput" placeholder="One item per line..."></textarea>
+      <button onclick="listToCSV()">Convert to CSV</button>
+      <div id="listOutput" class="output" style="display:none;"></div>
+    </div>
+
+    <div class="tool">
+      <h2>Text Tools</h2>
+      <textarea id="textInput" placeholder="Enter text..."></textarea>
+      <button onclick="capitaliseText()">Capitalise</button>
+      <button onclick="sortLines()">Sort Lines</button>
+      <div id="textOutput" class="output" style="display:none;"></div>
+    </div>
+
+  <script>
+    // Existing JSON functions already in file...
+
+    function listToCSV() {
+      const input = document.getElementById('listInput').value.trim();
+      const output = document.getElementById('listOutput');
+      if (!input) return;
+      const lines = input.split('\n').map(l => l.trim()).filter(Boolean);
+      output.textContent = lines.join(',');
+      output.style.display = 'block';
+    }
+
+    function capitaliseText() {
+      const input = document.getElementById('textInput').value;
+      const output = document.getElementById('textOutput');
+      output.textContent = input.toUpperCase();
+      output.style.display = 'block';
+    }
+
+    function sortLines() {
+      const input = document.getElementById('textInput').value;
+      const output = document.getElementById('textOutput');
+      const lines = input.split('\n').sort();
+      output.textContent = lines.join('\n');
+      output.style.display = 'block';
+    }
+  </script>
