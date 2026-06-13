@@ -9,7 +9,7 @@ import PasswordTool from './tools/PasswordTool'
 import TimestampTool from './tools/TimestampTool'
 import ColorTool from './tools/ColorTool'
 import UUIDTool from './tools/UUIDTool'
-import QRTool from './tools/QRTool'
+import QRCodeTool from './tools/QRCodeTool'
 import RegexTool from './tools/RegexTool'
 import TrimTool from './tools/TrimTool'
 import ReverseTool from './tools/ReverseTool'
@@ -91,7 +91,7 @@ const tools = [
   { id: 'relative', name: 'Relative Time', icon: Clock, category: 'Utility', desc: 'Date to "2 days ago"', component: RelativeTimeTool },
   { id: 'datefmt', name: 'Date Formatter', icon: Clock, category: 'Utility', desc: 'Format dates', component: DateFormatterTool },
   { id: 'uuid', name: 'UUID Generator (v4-v8)', icon: Fingerprint, category: 'Utility', desc: 'v4, v5, v6, v7, v8', component: UUIDTool },
-  { id: 'qr', name: 'QR Code Generator', icon: QrCode, category: 'Utility', desc: 'Text/URL to QR code', component: QRTool },
+  { id: 'qr', name: 'QR Code Generator', icon: QrCode, category: 'Utility', desc: 'Text/URL to QR code', component: QRCodeTool },
   { id: 'random', name: 'Random Generator', icon: Calculator, category: 'Utility', desc: 'Numbers, strings, booleans', component: RandomTool },
   { id: 'dice', name: 'Dice Roller', icon: Calculator, category: 'Utility', desc: 'Roll dice', component: DiceRollerTool },
   { id: 'lorem', name: 'Lorem Ipsum', icon: Quote, category: 'Utility', desc: 'Placeholder text generator', component: LoremTool },
