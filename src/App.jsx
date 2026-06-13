@@ -23,15 +23,21 @@ import JWTTool from './tools/JWTTool'
 import MarkdownTool from './tools/MarkdownTool'
 import CaseTool from './tools/CaseTool'
 import LoremTool from './tools/LoremTool'
+import NumberBaseTool from './tools/NumberBaseTool'
+import HTMLEncodeTool from './tools/HTMLEncodeTool'
+import SemverTool from './tools/SemverTool'
+import CSVJSONTool from './tools/CSVJSONTool'
 
 const tools = [
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', desc: 'Format, validate & collapsible tree', component: JSONTool },
   { id: 'regex', name: 'Regex Tester', icon: Search, category: 'Developer', desc: 'Test regex with live matches', component: RegexTool },
   { id: 'jwt', name: 'JWT Decoder', icon: Shield, category: 'Developer', desc: 'Decode JSON Web Tokens', component: JWTTool },
   { id: 'markdown', name: 'Markdown Preview', icon: FileCode, category: 'Developer', desc: 'Live Markdown to HTML', component: MarkdownTool },
+  { id: 'csvjson', name: 'CSV ↔ JSON', icon: FileCode, category: 'Developer', desc: 'Convert CSV and JSON', component: CSVJSONTool },
   { id: 'base64', name: 'Base64', icon: Key, category: 'Encoding', desc: 'Encode and decode Base64', component: Base64Tool },
   { id: 'base32', name: 'Base32', icon: Key, category: 'Encoding', desc: 'Base32 encode/decode', component: Base32Tool },
   { id: 'url', name: 'URL Encode/Decode', icon: Link, category: 'Encoding', desc: 'URL parameter tools', component: URLBuilderTool },
+  { id: 'html', name: 'HTML Encode/Decode', icon: Type, category: 'Encoding', desc: 'HTML entities', component: HTMLEncodeTool },
   { id: 'hash', name: 'Hash Generator', icon: Hash, category: 'Crypto', desc: 'MD5, SHA-256, SHA-512', component: HashTool },
   { id: 'hmac', name: 'HMAC Generator', icon: Shield, category: 'Crypto', desc: 'HMAC with various algorithms', component: HMACTool },
   { id: 'aes', name: 'AES Encrypt/Decrypt', icon: Lock, category: 'Security', desc: 'AES-256 with password', component: AESTool },
@@ -54,6 +60,8 @@ const tools = [
   { id: 'urlval', name: 'URL Validator', icon: Link, category: 'Validator', desc: 'Validate URL format', component: null },
   { id: 'ipval', name: 'IP Validator', icon: Binary, category: 'Validator', desc: 'Validate IPv4/IPv6', component: IPValidatorTool },
   { id: 'urlbuilder', name: 'URL Builder', icon: Link, category: 'Builder', desc: 'Build URLs with query params', component: URLBuilderTool },
+  { id: 'numberbase', name: 'Number Base Converter', icon: Binary, category: 'Utility', desc: 'Binary, Octal, Decimal, Hex', component: NumberBaseTool },
+  { id: 'semver', name: 'Semver Helper', icon: Calculator, category: 'Developer', desc: 'Semantic version builder', component: SemverTool },
 ]
 
 function App() {
