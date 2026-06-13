@@ -1,1 +1,0 @@
-# lyra-chef\n\nA cosmic Swiss Army knife for data transformation (JSON, regex, text, lists, etc.).\n\nInspired by CyberChef. Built incrementally with full test coverage.\n\n## Tools (so far)\n- JSON Viewer & Formatter\n\n## Tech\n- Vanilla JS + HTML for simplicity\n- Jest for tests\n\n## Getting started\nOpen index.html in browser or run tests.
