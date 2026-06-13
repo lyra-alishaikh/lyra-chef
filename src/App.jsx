@@ -13,50 +13,55 @@ import QRTool from './tools/QRTool'
 import RegexTool from './tools/RegexTool'
 import TrimTool from './tools/TrimTool'
 import ReverseTool from './tools/ReverseTool'
+import SortLinesTool from './tools/SortLinesTool'
+import EmailValidatorTool from './tools/EmailValidatorTool'
 
 const tools = [
-  // Developer (10)
+  // Developer
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', desc: 'Format, validate & collapsible tree', component: JSONTool },
   { id: 'regex', name: 'Regex Tester', icon: Search, category: 'Developer', desc: 'Test regex with live matches', component: RegexTool },
   { id: 'jwt', name: 'JWT Decoder', icon: Shield, category: 'Developer', desc: 'Decode JSON Web Tokens', component: null },
   { id: 'markdown', name: 'Markdown Preview', icon: FileCode, category: 'Developer', desc: 'Live Markdown to HTML', component: null },
   { id: 'diff', name: 'Text Diff', icon: Binary, category: 'Developer', desc: 'Compare two texts', component: null },
   { id: 'yaml', name: 'YAML ↔ JSON', icon: FileCode, category: 'Developer', desc: 'Convert between YAML and JSON', component: null },
-  { id: 'csvjson', name: 'CSV ↔ JSON', icon: FileCode, category: 'Developer', desc: 'Convert CSV and JSON', component: null },
 
-  // Encoding (8)
+  // Encoding
   { id: 'base64', name: 'Base64', icon: Key, category: 'Encoding', desc: 'Encode and decode Base64', component: Base64Tool },
   { id: 'url', name: 'URL Encode/Decode', icon: Link, category: 'Encoding', desc: 'URL parameter tools', component: null },
   { id: 'html', name: 'HTML Encode/Decode', icon: Type, category: 'Encoding', desc: 'HTML entities', component: null },
   { id: 'base32', name: 'Base32', icon: Key, category: 'Encoding', desc: 'Base32 encode/decode', component: null },
-  { id: 'hex', name: 'Hex Encode/Decode', icon: Binary, category: 'Encoding', desc: 'Hexadecimal tools', component: null },
 
-  // Crypto & Security (8)
+  // Crypto & Security
   { id: 'hash', name: 'Hash Generator', icon: Hash, category: 'Crypto', desc: 'MD5, SHA-256, SHA-512', component: HashTool },
   { id: 'aes', name: 'AES Encrypt/Decrypt', icon: Lock, category: 'Security', desc: 'AES-256 with password', component: AESTool },
   { id: 'password', name: 'Password Generator', icon: User, category: 'Security', desc: 'Strong customizable passwords', component: PasswordTool },
   { id: 'hmac', name: 'HMAC Generator', icon: Shield, category: 'Crypto', desc: 'HMAC with various algorithms', component: null },
-  { id: 'bcrypt', name: 'bcrypt Hash', icon: Lock, category: 'Security', desc: 'bcrypt password hashing', component: null },
 
-  // Utility (10)
+  // Utility
   { id: 'timestamp', name: 'Timestamp Converter', icon: Clock, category: 'Utility', desc: 'Unix ↔ Human date', component: TimestampTool },
-  { id: 'uuid', name: 'UUID Generator', icon: Fingerprint, category: 'Utility', desc: 'v4, v5, v6, v7', component: UUIDTool },
+  { id: 'uuid', name: 'UUID Generator (v4-v7)', icon: Fingerprint, category: 'Utility', desc: 'v4, v5, v6, v7 support', component: UUIDTool },
   { id: 'qr', name: 'QR Code Generator', icon: QrCode, category: 'Utility', desc: 'Text/URL to QR code', component: QRTool },
   { id: 'random', name: 'Random Generator', icon: Calculator, category: 'Utility', desc: 'Numbers, strings, booleans', component: null },
   { id: 'lorem', name: 'Lorem Ipsum', icon: Quote, category: 'Utility', desc: 'Placeholder text generator', component: null },
   { id: 'wordcount', name: 'Word Counter', icon: Calculator, category: 'Utility', desc: 'Words, chars, reading time', component: null },
   { id: 'ip', name: 'IP Address Tools', icon: Binary, category: 'Utility', desc: 'Validate, info, geolocation', component: null },
 
-  // Text (8)
+  // Text
   { id: 'trim', name: 'Trim Tool', icon: Type, category: 'Text', desc: 'Trim whitespace', component: TrimTool },
   { id: 'reverse', name: 'Reverse Text', icon: Type, category: 'Text', desc: 'Reverse characters/lines', component: ReverseTool },
+  { id: 'sortlines', name: 'Sort Lines', icon: Type, category: 'Text', desc: 'Sort lines A-Z or Z-A', component: SortLinesTool },
   { id: 'slugify', name: 'Slugify', icon: Link, category: 'Text', desc: 'URL-friendly slugs', component: null },
   { id: 'case', name: 'Case Converter', icon: Type, category: 'Text', desc: 'camelCase, snake_case, etc.', component: null },
   { id: 'duplicate', name: 'Remove Duplicates', icon: Type, category: 'Text', desc: 'Remove duplicate lines', component: null },
 
-  // Design (5)
+  // Design
   { id: 'color', name: 'Color Converter', icon: Palette, category: 'Design', desc: 'HEX, RGB, HSL', component: ColorTool },
   { id: 'contrast', name: 'Contrast Checker', icon: Palette, category: 'Design', desc: 'WCAG contrast ratio', component: null },
+
+  // Validators
+  { id: 'emailval', name: 'Email Validator', icon: Shield, category: 'Validator', desc: 'Validate email format', component: EmailValidatorTool },
+  { id: 'urlval', name: 'URL Validator', icon: Link, category: 'Validator', desc: 'Validate URL format', component: null },
+  { id: 'ipval', name: 'IP Validator', icon: Binary, category: 'Validator', desc: 'Validate IPv4/IPv6', component: null },
 ]
 
 function App() {
