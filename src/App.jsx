@@ -36,6 +36,16 @@ import DiceRollerTool from './tools/DiceRollerTool'
 import QueryStringTool from './tools/QueryStringTool'
 import DiffTool from './tools/DiffTool'
 import PasswordStrengthTool from './tools/PasswordStrengthTool'
+import MorseCodeTool from './tools/MorseCodeTool'
+import BinaryTextTool from './tools/BinaryTextTool'
+import RelativeTimeTool from './tools/RelativeTimeTool'
+import PhoneValidatorTool from './tools/PhoneValidatorTool'
+import EscapeTool from './tools/EscapeTool'
+import RemoveSpacesTool from './tools/RemoveSpacesTool'
+import CapitalizeTool from './tools/CapitalizeTool'
+import RandomColorTool from './tools/RandomColorTool'
+import BytesTool from './tools/BytesTool'
+import UnitConverterTool from './tools/UnitConverterTool'
 
 const tools = [
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', desc: 'Format, validate & collapsible tree', component: JSONTool },
@@ -48,12 +58,14 @@ const tools = [
   { id: 'base32', name: 'Base32', icon: Key, category: 'Encoding', desc: 'Base32 encode/decode', component: Base32Tool },
   { id: 'url', name: 'URL Encode/Decode', icon: Link, category: 'Encoding', desc: 'URL parameter tools', component: URLBuilderTool },
   { id: 'html', name: 'HTML Encode/Decode', icon: Type, category: 'Encoding', desc: 'HTML entities', component: HTMLEncodeTool },
+  { id: 'escape', name: 'Escape / Unescape', icon: Type, category: 'Encoding', desc: 'Escape strings for code', component: EscapeTool },
   { id: 'hash', name: 'Hash Generator', icon: Hash, category: 'Crypto', desc: 'MD5, SHA-256, SHA-512', component: HashTool },
   { id: 'hmac', name: 'HMAC Generator', icon: Shield, category: 'Crypto', desc: 'HMAC with various algorithms', component: HMACTool },
   { id: 'aes', name: 'AES Encrypt/Decrypt', icon: Lock, category: 'Security', desc: 'AES-256 with password', component: AESTool },
   { id: 'password', name: 'Password Generator', icon: User, category: 'Security', desc: 'Strong customizable passwords', component: PasswordTool },
   { id: 'pwstrength', name: 'Password Strength', icon: Shield, category: 'Security', desc: 'Check password strength', component: PasswordStrengthTool },
   { id: 'timestamp', name: 'Timestamp Converter', icon: Clock, category: 'Utility', desc: 'Unix ↔ Human date', component: TimestampTool },
+  { id: 'relative', name: 'Relative Time', icon: Clock, category: 'Utility', desc: 'Date to "2 days ago"', component: RelativeTimeTool },
   { id: 'uuid', name: 'UUID Generator (v4-v8)', icon: Fingerprint, category: 'Utility', desc: 'v4, v5, v6, v7, v8', component: UUIDTool },
   { id: 'qr', name: 'QR Code Generator', icon: QrCode, category: 'Utility', desc: 'Text/URL to QR code', component: QRTool },
   { id: 'random', name: 'Random Generator', icon: Calculator, category: 'Utility', desc: 'Numbers, strings, booleans', component: RandomTool },
@@ -67,14 +79,22 @@ const tools = [
   { id: 'case', name: 'Case Converter', icon: Type, category: 'Text', desc: 'camelCase, snake_case, etc.', component: CaseTool },
   { id: 'duplicate', name: 'Remove Duplicates', icon: Type, category: 'Text', desc: 'Remove duplicate lines', component: DuplicateTool },
   { id: 'rot13', name: 'ROT13', icon: Type, category: 'Text', desc: 'ROT13 cipher', component: ROT13Tool },
+  { id: 'morse', name: 'Morse Code', icon: Type, category: 'Text', desc: 'Morse code converter', component: MorseCodeTool },
+  { id: 'binary', name: 'Text ↔ Binary', icon: Binary, category: 'Text', desc: 'Text to binary and back', component: BinaryTextTool },
+  { id: 'removespaces', name: 'Remove Spaces', icon: Type, category: 'Text', desc: 'Remove extra/all whitespace', component: RemoveSpacesTool },
+  { id: 'capitalize', name: 'Capitalize Text', icon: Type, category: 'Text', desc: 'Title / Sentence case', component: CapitalizeTool },
   { id: 'color', name: 'Color Converter', icon: Palette, category: 'Design', desc: 'HEX, RGB, HSL', component: ColorTool },
+  { id: 'randomcolor', name: 'Random Palette', icon: Palette, category: 'Design', desc: 'Generate random colors', component: RandomColorTool },
   { id: 'contrast', name: 'Contrast Checker', icon: Palette, category: 'Design', desc: 'WCAG contrast ratio', component: null },
   { id: 'emailval', name: 'Email Validator', icon: Shield, category: 'Validator', desc: 'Validate email format', component: EmailValidatorTool },
+  { id: 'phoneval', name: 'Phone Validator', icon: Shield, category: 'Validator', desc: 'Basic phone validation', component: PhoneValidatorTool },
   { id: 'urlval', name: 'URL Validator', icon: Link, category: 'Validator', desc: 'Validate URL format', component: null },
   { id: 'ipval', name: 'IP Validator', icon: Binary, category: 'Validator', desc: 'Validate IPv4/IPv6', component: IPValidatorTool },
   { id: 'urlbuilder', name: 'URL Builder', icon: Link, category: 'Builder', desc: 'Build URLs with query params', component: URLBuilderTool },
   { id: 'querystring', name: 'Query String Parser', icon: Link, category: 'Builder', desc: 'Parse/build query strings', component: QueryStringTool },
   { id: 'numberbase', name: 'Number Base Converter', icon: Binary, category: 'Utility', desc: 'Binary, Octal, Decimal, Hex', component: NumberBaseTool },
+  { id: 'bytes', name: 'Bytes to Human', icon: Calculator, category: 'Utility', desc: '1024 B → 1 KB', component: BytesTool },
+  { id: 'unit', name: 'Unit Converter', icon: Calculator, category: 'Utility', desc: 'Length, distance units', component: UnitConverterTool },
   { id: 'semver', name: 'Semver Helper', icon: Calculator, category: 'Developer', desc: 'Semantic version builder', component: SemverTool },
 ]
 
