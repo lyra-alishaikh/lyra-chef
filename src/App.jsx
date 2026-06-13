@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FileCode, Key, Hash, Lock, User, Clock, Palette, Search, ArrowRight } from 'lucide-react'
+import { FileCode, Key, Hash, Lock, User, Clock, Palette, Search, ArrowRight, Fingerprint, QrCode } from 'lucide-react'
 
 import JSONTool from './tools/JSONTool'
 import Base64Tool from './tools/Base64Tool'
@@ -8,6 +8,9 @@ import AESTool from './tools/AESTool'
 import PasswordTool from './tools/PasswordTool'
 import TimestampTool from './tools/TimestampTool'
 import ColorTool from './tools/ColorTool'
+import UUIDTool from './tools/UUIDTool'
+import QRTool from './tools/QRTool'
+import RegexTool from './tools/RegexTool'
 
 const tools = [
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', desc: 'Format, validate & collapsible tree' },
@@ -17,6 +20,9 @@ const tools = [
   { id: 'password', name: 'Password Generator', icon: User, category: 'Security', desc: 'Strong customizable passwords' },
   { id: 'timestamp', name: 'Timestamp Converter', icon: Clock, category: 'Utility', desc: 'Unix ↔ Human date' },
   { id: 'color', name: 'Color Converter', icon: Palette, category: 'Design', desc: 'HEX, RGB, HSL' },
+  { id: 'uuid', name: 'UUID Generator', icon: Fingerprint, category: 'Utility', desc: 'Bulk v4 UUIDs' },
+  { id: 'qr', name: 'QR Code Generator', icon: QrCode, category: 'Utility', desc: 'Text/URL to QR code' },
+  { id: 'regex', name: 'Regex Tester', icon: Search, category: 'Developer', desc: 'Test regex with live matches' },
 ]
 
 function App() {
