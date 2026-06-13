@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FileCode, Key, Hash, Lock, User, Clock, Palette, FileText, Search, Quote, Calculator, Link, Shield, QrCode } from 'lucide-react'
+import { FileCode, Key, Hash, Lock, User, Clock, Palette, CaseSensitive, Image, Link, QrCode, ScanSearch, Fingerprint } from 'lucide-react'
 
 import JSONTool from './tools/JSONTool'
 import Base64Tool from './tools/Base64Tool'
@@ -8,14 +8,30 @@ import AESTool from './tools/AESTool'
 import PasswordTool from './tools/PasswordTool'
 import TimestampTool from './tools/TimestampTool'
 import ColorTool from './tools/ColorTool'
+import QRTool from './tools/QRTool'
+import UuidTool from './tools/UuidTool'
+import TextEncoderTool from './tools/TextEncoderTool'
+import TextCaseTool from './tools/TextCaseTool'
+import UrlBuilderTool from './tools/UrlBuilderTool'
+import Base64ImageTool from './tools/Base64ImageTool'
+import ImageStudioTool from './tools/ImageStudioTool'
+import WebAnalyzerTool from './tools/WebAnalyzerTool'
 
 const tools = [
+  { id: 'web-analyzer', name: 'Web Analyzer', icon: ScanSearch, category: 'Digital Marketing', component: WebAnalyzerTool },
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', component: JSONTool },
   { id: 'base64', name: 'Base64 Encode/Decode', icon: Key, category: 'Encoding', component: Base64Tool },
+  { id: 'qr', name: 'QR Code Generator', icon: QrCode, category: 'Developer', component: QRTool },
   { id: 'hash', name: 'Hash Generator', icon: Hash, category: 'Crypto', component: HashTool },
   { id: 'aes', name: 'AES Encrypt/Decrypt', icon: Lock, category: 'Security', component: AESTool },
   { id: 'password', name: 'Password Generator', icon: User, category: 'Security', component: PasswordTool },
   { id: 'timestamp', name: 'Unix Timestamp Converter', icon: Clock, category: 'Utility', component: TimestampTool },
+  { id: 'uuid', name: 'UUID / GUID / ULID Generator', icon: Fingerprint, category: 'Developer', component: UuidTool },
+  { id: 'text-encoder', name: 'Text Encoder/Decoder', icon: Link, category: 'URL Tools', component: TextEncoderTool },
+  { id: 'url-builder', name: 'URL Builder', icon: Link, category: 'URL Tools', component: UrlBuilderTool },
+  { id: 'text-case', name: 'Text Case Converter', icon: CaseSensitive, category: 'Text Processing', component: TextCaseTool },
+  { id: 'base64-image', name: 'Base64 to Image', icon: Image, category: 'Media', component: Base64ImageTool },
+  { id: 'image-studio', name: 'Image Studio', icon: Image, category: 'Media', component: ImageStudioTool },
   { id: 'color', name: 'Color Converter', icon: Palette, category: 'Design', component: ColorTool },
 ]
 

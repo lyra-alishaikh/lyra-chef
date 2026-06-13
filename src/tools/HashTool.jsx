@@ -7,6 +7,10 @@ export default function HashTool() {
 
   const generate = async () => {
     if (!input) return
+    if (algo === 'MD5') {
+      setOutput('MD5 is not available in the browser Web Crypto API. Choose SHA-1, SHA-256, or SHA-512.')
+      return
+    }
     const encoder = new TextEncoder()
     const data = encoder.encode(input)
     const hashBuffer = await crypto.subtle.digest(algo, data)
