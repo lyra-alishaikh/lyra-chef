@@ -17,6 +17,8 @@ import SortLinesTool from './tools/SortLinesTool'
 import EmailValidatorTool from './tools/EmailValidatorTool'
 import IPValidatorTool from './tools/IPValidatorTool'
 import URLBuilderTool from './tools/URLBuilderTool'
+import Base32Tool from './tools/Base32Tool'
+import HMACTool from './tools/HMACTool'
 
 const tools = [
   // Developer
@@ -31,17 +33,17 @@ const tools = [
 
   // Encoding
   { id: 'base64', name: 'Base64', icon: Key, category: 'Encoding', desc: 'Encode and decode Base64', component: Base64Tool },
+  { id: 'base32', name: 'Base32', icon: Key, category: 'Encoding', desc: 'Base32 encode/decode', component: Base32Tool },
   { id: 'url', name: 'URL Encode/Decode', icon: Link, category: 'Encoding', desc: 'URL parameter tools', component: null },
   { id: 'html', name: 'HTML Encode/Decode', icon: Type, category: 'Encoding', desc: 'HTML entities', component: null },
-  { id: 'base32', name: 'Base32', icon: Key, category: 'Encoding', desc: 'Base32 encode/decode', component: null },
   { id: 'hex', name: 'Hex Encode/Decode', icon: Binary, category: 'Encoding', desc: 'Hexadecimal tools', component: null },
   { id: 'unicode', name: 'Unicode Escape', icon: Type, category: 'Encoding', desc: 'Escape/unescape Unicode', component: null },
 
   // Crypto & Security
   { id: 'hash', name: 'Hash Generator', icon: Hash, category: 'Crypto', desc: 'MD5, SHA-256, SHA-512', component: HashTool },
+  { id: 'hmac', name: 'HMAC Generator', icon: Shield, category: 'Crypto', desc: 'HMAC with various algorithms', component: HMACTool },
   { id: 'aes', name: 'AES Encrypt/Decrypt', icon: Lock, category: 'Security', desc: 'AES-256 with password', component: AESTool },
   { id: 'password', name: 'Password Generator', icon: User, category: 'Security', desc: 'Strong customizable passwords', component: PasswordTool },
-  { id: 'hmac', name: 'HMAC Generator', icon: Shield, category: 'Crypto', desc: 'HMAC with various algorithms', component: null },
   { id: 'bcrypt', name: 'bcrypt Hash', icon: Lock, category: 'Security', desc: 'bcrypt password hashing', component: null },
 
   // Utility
