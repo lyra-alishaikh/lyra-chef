@@ -21,6 +21,8 @@ import Base32Tool from './tools/Base32Tool'
 import HMACTool from './tools/HMACTool'
 import JWTTool from './tools/JWTTool'
 import MarkdownTool from './tools/MarkdownTool'
+import CaseTool from './tools/CaseTool'
+import LoremTool from './tools/LoremTool'
 
 const tools = [
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', desc: 'Format, validate & collapsible tree', component: JSONTool },
@@ -38,13 +40,13 @@ const tools = [
   { id: 'uuid', name: 'UUID Generator (v4-v8)', icon: Fingerprint, category: 'Utility', desc: 'v4, v5, v6, v7, v8', component: UUIDTool },
   { id: 'qr', name: 'QR Code Generator', icon: QrCode, category: 'Utility', desc: 'Text/URL to QR code', component: QRTool },
   { id: 'random', name: 'Random Generator', icon: Calculator, category: 'Utility', desc: 'Numbers, strings, booleans', component: null },
-  { id: 'lorem', name: 'Lorem Ipsum', icon: Quote, category: 'Utility', desc: 'Placeholder text generator', component: null },
+  { id: 'lorem', name: 'Lorem Ipsum', icon: Quote, category: 'Utility', desc: 'Placeholder text generator', component: LoremTool },
   { id: 'wordcount', name: 'Word Counter', icon: Calculator, category: 'Utility', desc: 'Words, chars, reading time', component: null },
   { id: 'trim', name: 'Trim Tool', icon: Type, category: 'Text', desc: 'Trim whitespace', component: TrimTool },
   { id: 'reverse', name: 'Reverse Text', icon: Type, category: 'Text', desc: 'Reverse characters/lines', component: ReverseTool },
   { id: 'sortlines', name: 'Sort Lines', icon: Type, category: 'Text', desc: 'Sort lines A-Z or Z-A', component: SortLinesTool },
   { id: 'slugify', name: 'Slugify', icon: Link, category: 'Text', desc: 'URL-friendly slugs', component: null },
-  { id: 'case', name: 'Case Converter', icon: Type, category: 'Text', desc: 'camelCase, snake_case, etc.', component: null },
+  { id: 'case', name: 'Case Converter', icon: Type, category: 'Text', desc: 'camelCase, snake_case, etc.', component: CaseTool },
   { id: 'duplicate', name: 'Remove Duplicates', icon: Type, category: 'Text', desc: 'Remove duplicate lines', component: null },
   { id: 'color', name: 'Color Converter', icon: Palette, category: 'Design', desc: 'HEX, RGB, HSL', component: ColorTool },
   { id: 'contrast', name: 'Contrast Checker', icon: Palette, category: 'Design', desc: 'WCAG contrast ratio', component: null },
