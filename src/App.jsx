@@ -27,6 +27,15 @@ import NumberBaseTool from './tools/NumberBaseTool'
 import HTMLEncodeTool from './tools/HTMLEncodeTool'
 import SemverTool from './tools/SemverTool'
 import CSVJSONTool from './tools/CSVJSONTool'
+import SlugifyTool from './tools/SlugifyTool'
+import WordCountTool from './tools/WordCountTool'
+import DuplicateTool from './tools/DuplicateTool'
+import RandomTool from './tools/RandomTool'
+import ROT13Tool from './tools/ROT13Tool'
+import DiceRollerTool from './tools/DiceRollerTool'
+import QueryStringTool from './tools/QueryStringTool'
+import DiffTool from './tools/DiffTool'
+import PasswordStrengthTool from './tools/PasswordStrengthTool'
 
 const tools = [
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', desc: 'Format, validate & collapsible tree', component: JSONTool },
@@ -34,6 +43,7 @@ const tools = [
   { id: 'jwt', name: 'JWT Decoder', icon: Shield, category: 'Developer', desc: 'Decode JSON Web Tokens', component: JWTTool },
   { id: 'markdown', name: 'Markdown Preview', icon: FileCode, category: 'Developer', desc: 'Live Markdown to HTML', component: MarkdownTool },
   { id: 'csvjson', name: 'CSV ↔ JSON', icon: FileCode, category: 'Developer', desc: 'Convert CSV and JSON', component: CSVJSONTool },
+  { id: 'diff', name: 'Text Diff', icon: Binary, category: 'Developer', desc: 'Simple text comparison', component: DiffTool },
   { id: 'base64', name: 'Base64', icon: Key, category: 'Encoding', desc: 'Encode and decode Base64', component: Base64Tool },
   { id: 'base32', name: 'Base32', icon: Key, category: 'Encoding', desc: 'Base32 encode/decode', component: Base32Tool },
   { id: 'url', name: 'URL Encode/Decode', icon: Link, category: 'Encoding', desc: 'URL parameter tools', component: URLBuilderTool },
@@ -42,24 +52,28 @@ const tools = [
   { id: 'hmac', name: 'HMAC Generator', icon: Shield, category: 'Crypto', desc: 'HMAC with various algorithms', component: HMACTool },
   { id: 'aes', name: 'AES Encrypt/Decrypt', icon: Lock, category: 'Security', desc: 'AES-256 with password', component: AESTool },
   { id: 'password', name: 'Password Generator', icon: User, category: 'Security', desc: 'Strong customizable passwords', component: PasswordTool },
+  { id: 'pwstrength', name: 'Password Strength', icon: Shield, category: 'Security', desc: 'Check password strength', component: PasswordStrengthTool },
   { id: 'timestamp', name: 'Timestamp Converter', icon: Clock, category: 'Utility', desc: 'Unix ↔ Human date', component: TimestampTool },
   { id: 'uuid', name: 'UUID Generator (v4-v8)', icon: Fingerprint, category: 'Utility', desc: 'v4, v5, v6, v7, v8', component: UUIDTool },
   { id: 'qr', name: 'QR Code Generator', icon: QrCode, category: 'Utility', desc: 'Text/URL to QR code', component: QRTool },
-  { id: 'random', name: 'Random Generator', icon: Calculator, category: 'Utility', desc: 'Numbers, strings, booleans', component: null },
+  { id: 'random', name: 'Random Generator', icon: Calculator, category: 'Utility', desc: 'Numbers, strings, booleans', component: RandomTool },
+  { id: 'dice', name: 'Dice Roller', icon: Calculator, category: 'Utility', desc: 'Roll dice', component: DiceRollerTool },
   { id: 'lorem', name: 'Lorem Ipsum', icon: Quote, category: 'Utility', desc: 'Placeholder text generator', component: LoremTool },
-  { id: 'wordcount', name: 'Word Counter', icon: Calculator, category: 'Utility', desc: 'Words, chars, reading time', component: null },
+  { id: 'wordcount', name: 'Word Counter', icon: Calculator, category: 'Utility', desc: 'Words, chars, reading time', component: WordCountTool },
   { id: 'trim', name: 'Trim Tool', icon: Type, category: 'Text', desc: 'Trim whitespace', component: TrimTool },
   { id: 'reverse', name: 'Reverse Text', icon: Type, category: 'Text', desc: 'Reverse characters/lines', component: ReverseTool },
   { id: 'sortlines', name: 'Sort Lines', icon: Type, category: 'Text', desc: 'Sort lines A-Z or Z-A', component: SortLinesTool },
-  { id: 'slugify', name: 'Slugify', icon: Link, category: 'Text', desc: 'URL-friendly slugs', component: null },
+  { id: 'slugify', name: 'Slugify', icon: Link, category: 'Text', desc: 'URL-friendly slugs', component: SlugifyTool },
   { id: 'case', name: 'Case Converter', icon: Type, category: 'Text', desc: 'camelCase, snake_case, etc.', component: CaseTool },
-  { id: 'duplicate', name: 'Remove Duplicates', icon: Type, category: 'Text', desc: 'Remove duplicate lines', component: null },
+  { id: 'duplicate', name: 'Remove Duplicates', icon: Type, category: 'Text', desc: 'Remove duplicate lines', component: DuplicateTool },
+  { id: 'rot13', name: 'ROT13', icon: Type, category: 'Text', desc: 'ROT13 cipher', component: ROT13Tool },
   { id: 'color', name: 'Color Converter', icon: Palette, category: 'Design', desc: 'HEX, RGB, HSL', component: ColorTool },
   { id: 'contrast', name: 'Contrast Checker', icon: Palette, category: 'Design', desc: 'WCAG contrast ratio', component: null },
   { id: 'emailval', name: 'Email Validator', icon: Shield, category: 'Validator', desc: 'Validate email format', component: EmailValidatorTool },
   { id: 'urlval', name: 'URL Validator', icon: Link, category: 'Validator', desc: 'Validate URL format', component: null },
   { id: 'ipval', name: 'IP Validator', icon: Binary, category: 'Validator', desc: 'Validate IPv4/IPv6', component: IPValidatorTool },
   { id: 'urlbuilder', name: 'URL Builder', icon: Link, category: 'Builder', desc: 'Build URLs with query params', component: URLBuilderTool },
+  { id: 'querystring', name: 'Query String Parser', icon: Link, category: 'Builder', desc: 'Parse/build query strings', component: QueryStringTool },
   { id: 'numberbase', name: 'Number Base Converter', icon: Binary, category: 'Utility', desc: 'Binary, Octal, Decimal, Hex', component: NumberBaseTool },
   { id: 'semver', name: 'Semver Helper', icon: Calculator, category: 'Developer', desc: 'Semantic version builder', component: SemverTool },
 ]
