@@ -19,65 +19,39 @@ import IPValidatorTool from './tools/IPValidatorTool'
 import URLBuilderTool from './tools/URLBuilderTool'
 import Base32Tool from './tools/Base32Tool'
 import HMACTool from './tools/HMACTool'
+import JWTTool from './tools/JWTTool'
+import MarkdownTool from './tools/MarkdownTool'
 
 const tools = [
-  // Developer
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', desc: 'Format, validate & collapsible tree', component: JSONTool },
   { id: 'regex', name: 'Regex Tester', icon: Search, category: 'Developer', desc: 'Test regex with live matches', component: RegexTool },
-  { id: 'jwt', name: 'JWT Decoder', icon: Shield, category: 'Developer', desc: 'Decode JSON Web Tokens', component: null },
-  { id: 'markdown', name: 'Markdown Preview', icon: FileCode, category: 'Developer', desc: 'Live Markdown to HTML', component: null },
-  { id: 'diff', name: 'Text Diff', icon: Binary, category: 'Developer', desc: 'Compare two texts', component: null },
-  { id: 'yaml', name: 'YAML ↔ JSON', icon: FileCode, category: 'Developer', desc: 'Convert between YAML and JSON', component: null },
-  { id: 'csvjson', name: 'CSV ↔ JSON', icon: FileCode, category: 'Developer', desc: 'Convert CSV and JSON', component: null },
-  { id: 'jsonpath', name: 'JSON Path', icon: FileCode, category: 'Developer', desc: 'Query JSON with JSONPath', component: null },
-
-  // Encoding
+  { id: 'jwt', name: 'JWT Decoder', icon: Shield, category: 'Developer', desc: 'Decode JSON Web Tokens', component: JWTTool },
+  { id: 'markdown', name: 'Markdown Preview', icon: FileCode, category: 'Developer', desc: 'Live Markdown to HTML', component: MarkdownTool },
   { id: 'base64', name: 'Base64', icon: Key, category: 'Encoding', desc: 'Encode and decode Base64', component: Base64Tool },
   { id: 'base32', name: 'Base32', icon: Key, category: 'Encoding', desc: 'Base32 encode/decode', component: Base32Tool },
-  { id: 'url', name: 'URL Encode/Decode', icon: Link, category: 'Encoding', desc: 'URL parameter tools', component: null },
-  { id: 'html', name: 'HTML Encode/Decode', icon: Type, category: 'Encoding', desc: 'HTML entities', component: null },
-  { id: 'hex', name: 'Hex Encode/Decode', icon: Binary, category: 'Encoding', desc: 'Hexadecimal tools', component: null },
-  { id: 'unicode', name: 'Unicode Escape', icon: Type, category: 'Encoding', desc: 'Escape/unescape Unicode', component: null },
-
-  // Crypto & Security
+  { id: 'url', name: 'URL Encode/Decode', icon: Link, category: 'Encoding', desc: 'URL parameter tools', component: URLBuilderTool },
   { id: 'hash', name: 'Hash Generator', icon: Hash, category: 'Crypto', desc: 'MD5, SHA-256, SHA-512', component: HashTool },
   { id: 'hmac', name: 'HMAC Generator', icon: Shield, category: 'Crypto', desc: 'HMAC with various algorithms', component: HMACTool },
   { id: 'aes', name: 'AES Encrypt/Decrypt', icon: Lock, category: 'Security', desc: 'AES-256 with password', component: AESTool },
   { id: 'password', name: 'Password Generator', icon: User, category: 'Security', desc: 'Strong customizable passwords', component: PasswordTool },
-  { id: 'bcrypt', name: 'bcrypt Hash', icon: Lock, category: 'Security', desc: 'bcrypt password hashing', component: null },
-
-  // Utility
   { id: 'timestamp', name: 'Timestamp Converter', icon: Clock, category: 'Utility', desc: 'Unix ↔ Human date', component: TimestampTool },
   { id: 'uuid', name: 'UUID Generator (v4-v8)', icon: Fingerprint, category: 'Utility', desc: 'v4, v5, v6, v7, v8', component: UUIDTool },
   { id: 'qr', name: 'QR Code Generator', icon: QrCode, category: 'Utility', desc: 'Text/URL to QR code', component: QRTool },
   { id: 'random', name: 'Random Generator', icon: Calculator, category: 'Utility', desc: 'Numbers, strings, booleans', component: null },
   { id: 'lorem', name: 'Lorem Ipsum', icon: Quote, category: 'Utility', desc: 'Placeholder text generator', component: null },
   { id: 'wordcount', name: 'Word Counter', icon: Calculator, category: 'Utility', desc: 'Words, chars, reading time', component: null },
-  { id: 'ip', name: 'IP Address Tools', icon: Binary, category: 'Utility', desc: 'Validate, info, geolocation', component: null },
-  { id: 'nanoid', name: 'Nano ID Generator', icon: Fingerprint, category: 'Utility', desc: 'URL-safe unique IDs', component: null },
-
-  // Text
   { id: 'trim', name: 'Trim Tool', icon: Type, category: 'Text', desc: 'Trim whitespace', component: TrimTool },
   { id: 'reverse', name: 'Reverse Text', icon: Type, category: 'Text', desc: 'Reverse characters/lines', component: ReverseTool },
   { id: 'sortlines', name: 'Sort Lines', icon: Type, category: 'Text', desc: 'Sort lines A-Z or Z-A', component: SortLinesTool },
   { id: 'slugify', name: 'Slugify', icon: Link, category: 'Text', desc: 'URL-friendly slugs', component: null },
   { id: 'case', name: 'Case Converter', icon: Type, category: 'Text', desc: 'camelCase, snake_case, etc.', component: null },
   { id: 'duplicate', name: 'Remove Duplicates', icon: Type, category: 'Text', desc: 'Remove duplicate lines', component: null },
-  { id: 'wrap', name: 'Line Wrap', icon: Type, category: 'Text', desc: 'Wrap text to width', component: null },
-
-  // Design
   { id: 'color', name: 'Color Converter', icon: Palette, category: 'Design', desc: 'HEX, RGB, HSL', component: ColorTool },
   { id: 'contrast', name: 'Contrast Checker', icon: Palette, category: 'Design', desc: 'WCAG contrast ratio', component: null },
-  { id: 'shadow', name: 'Box Shadow Generator', icon: Palette, category: 'Design', desc: 'CSS box-shadow builder', component: null },
-
-  // Validators
   { id: 'emailval', name: 'Email Validator', icon: Shield, category: 'Validator', desc: 'Validate email format', component: EmailValidatorTool },
   { id: 'urlval', name: 'URL Validator', icon: Link, category: 'Validator', desc: 'Validate URL format', component: null },
   { id: 'ipval', name: 'IP Validator', icon: Binary, category: 'Validator', desc: 'Validate IPv4/IPv6', component: IPValidatorTool },
-
-  // Builders
   { id: 'urlbuilder', name: 'URL Builder', icon: Link, category: 'Builder', desc: 'Build URLs with query params', component: URLBuilderTool },
-  { id: 'querystring', name: 'Query String Parser', icon: Link, category: 'Builder', desc: 'Parse/build query strings', component: null },
 ]
 
 function App() {
