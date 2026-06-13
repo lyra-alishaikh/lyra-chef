@@ -2,49 +2,64 @@ import { useRef, useState } from 'react'
 
 export default function ImageStudioTool() {
   const canvasRef = useRef(null)
-  const [downloadUrl, setDownloadUrl] = useState('')
-  const [format, setFormat] = useState('image/png')
-  const [width, setWidth] = useState(800)
+  const [fileName, setFileName] = useState('')
+  const [info, setInfo] = useState('')
 
-  const process = file => {
+  const loadFile = (file) => {
     if (!file) return
-    const image = new Image()
-    image.onload = () => {
-      const scale = width / image.width
+    setFileName(file.name)
+    const img = new Image()
+    img.onload = () => {
       const canvas = canvasRef.current
-      canvas.width = width
-      canvas.height = Math.max(1, Math.round(image.height * scale))
+      const scale = Math.min(1, 900 / img.width)
+      canvas.width = Math.round(img.width * scale)
+      canvas.height = Math.round(img.height * scale)
       const ctx = canvas.getContext('2d')
-      ctx.clearRect(0, 0, canvas.width, canvas.height)
-      ctx.drawImage(image, 0, 0, canvas.width, canvas.height)
-      setDownloadUrl(canvas.toDataURL(format, 0.88))
-      URL.revokeObjectURL(image.src)
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height)
+      setInfo(`${img.width} x ${img.height}px - ${Math.round(file.size / 1024)} KB`)
+      URL.revokeObjectURL(img.src)
     }
-    image.src = URL.createObjectURL(file)
+    img.src = URL.createObjectURL(file)
+  }
+
+  const applyFilter = (filter) => {
+    const canvas = canvasRef.current
+    if (!canvas.width) return
+    const ctx = canvas.getContext('2d')
+    const image = ctx.getImageData(0, 0, canvas.width, canvas.height)
+    const data = image.data
+    for (let i = 0; i < data.length; i += 4) {
+      const avg = (data[i] + data[i + 1] + data[i + 2]) / 3
+      if (filter === 'grayscale') data[i] = data[i + 1] = data[i + 2] = avg
+      if (filter === 'invert') {
+        data[i] = 255 - data[i]
+        data[i + 1] = 255 - data[i + 1]
+        data[i + 2] = 255 - data[i + 2]
+      }
+    }
+    ctx.putImageData(image, 0, 0)
+  }
+
+  const download = (type = 'image/png') => {
+    const canvas = canvasRef.current
+    if (!canvas.width) return
+    const link = document.createElement('a')
+    link.download = (fileName || 'image').replace(/\.[^.]+$/, '') + (type === 'image/jpeg' ? '.jpg' : '.png')
+    link.href = canvas.toDataURL(type, 0.9)
+    link.click()
   }
 
   return (
-    <div className="max-w-5xl space-y-5">
-      <div className="flex flex-wrap gap-3 items-end">
-        <label className="block">
-          <span className="text-sm font-medium">Image</span>
-          <input type="file" accept="image/*" onChange={e => process(e.target.files?.[0])} className="mt-2 block text-sm" />
-        </label>
-        <label className="block">
-          <span className="text-sm font-medium">Width</span>
-          <input type="number" min="16" max="4096" value={width} onChange={e => setWidth(Math.max(16, Number(e.target.value) || 16))} className="mt-2 w-32 border rounded-2xl px-4 py-3" />
-        </label>
-        <label className="block">
-          <span className="text-sm font-medium">Format</span>
-          <select value={format} onChange={e => setFormat(e.target.value)} className="mt-2 border rounded-2xl px-4 py-3 bg-white">
-            <option value="image/png">PNG</option>
-            <option value="image/jpeg">JPEG</option>
-            <option value="image/webp">WebP</option>
-          </select>
-        </label>
-        {downloadUrl && <a href={downloadUrl} download="lyra-chef-image" className="px-5 py-3 bg-zinc-900 text-white rounded-2xl text-sm">Download</a>}
+    <div className="max-w-5xl space-y-4">
+      <input type="file" accept="image/*" onChange={e => loadFile(e.target.files?.[0])} className="w-full rounded-2xl border border-zinc-300 bg-white px-5 py-3" />
+      <div className="flex flex-wrap gap-3">
+        <button onClick={() => applyFilter('grayscale')} className="rounded-2xl border border-zinc-300 px-5 py-3 font-medium">Grayscale</button>
+        <button onClick={() => applyFilter('invert')} className="rounded-2xl border border-zinc-300 px-5 py-3 font-medium">Invert</button>
+        <button onClick={() => download('image/png')} className="rounded-2xl bg-zinc-900 px-5 py-3 font-medium text-white">Download PNG</button>
+        <button onClick={() => download('image/jpeg')} className="rounded-2xl border border-zinc-300 px-5 py-3 font-medium">Download JPG</button>
       </div>
-      <div className="border rounded-2xl bg-white p-5 overflow-auto">
+      {info && <div className="text-sm text-zinc-500">{info}</div>}
+      <div className="overflow-auto rounded-3xl border border-zinc-200 bg-white p-4">
         <canvas ref={canvasRef} className="max-w-full" />
       </div>
     </div>
