@@ -65,6 +65,18 @@ import JSONToYAMLTool from './tools/JSONToYAMLTool'
 import PasswordEntropyTool from './tools/PasswordEntropyTool'
 import ContrastCheckerTool from './tools/ContrastCheckerTool'
 import URLValidatorTool from './tools/URLValidatorTool'
+import GradientTool from './tools/GradientTool'
+import BoxShadowTool from './tools/BoxShadowTool'
+import FakerTool from './tools/FakerTool'
+import StopwatchTool from './tools/StopwatchTool'
+import CurlTool from './tools/CurlTool'
+import MarkdownTableTool from './tools/MarkdownTableTool'
+import FlexboxTool from './tools/FlexboxTool'
+import BorderRadiusTool from './tools/BorderRadiusTool'
+import ImageResizeTool from './tools/ImageResizeTool'
+import BrowserInfoTool from './tools/BrowserInfoTool'
+import CronTool from './tools/CronTool'
+import GridPlaygroundTool from './tools/GridPlaygroundTool'
 
 const tools = [
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', desc: 'Format, validate & collapsible tree', component: JSONTool },
@@ -132,6 +144,22 @@ const tools = [
   { id: 'base64img', name: 'Base64 Image Preview', icon: Key, category: 'Encoding', desc: 'Preview base64 images', component: Base64ImageTool },
   { id: 'hashcompare', name: 'Hash Compare', icon: Hash, category: 'Crypto', desc: 'Compare two hashes', component: HashCompareTool },
   { id: 'linenumber', name: 'Add Line Numbers', icon: Type, category: 'Text', desc: 'Number each line', component: LineNumberTool },
+
+  // New richer design tools
+  { id: 'gradient', name: 'CSS Gradient Generator', icon: Palette, category: 'Design', desc: 'Linear & radial gradients with copy', component: GradientTool },
+  { id: 'boxshadow', name: 'Box Shadow Generator', icon: Palette, category: 'Design', desc: 'Real-time shadow designer', component: BoxShadowTool },
+  { id: 'border', name: 'Border Radius Editor', icon: Palette, category: 'Design', desc: 'Corner radius visual editor', component: BorderRadiusTool },
+  { id: 'flex', name: 'Flexbox Playground', icon: Palette, category: 'Design', desc: 'Live flexbox visualizer', component: FlexboxTool },
+  { id: 'grid', name: 'CSS Grid Playground', icon: Palette, category: 'Design', desc: 'Interactive grid builder', component: GridPlaygroundTool },
+
+  // New utility & dev tools
+  { id: 'faker', name: 'Fake Data Generator', icon: User, category: 'Utility', desc: 'Names, emails, phones, addresses', component: FakerTool },
+  { id: 'stopwatch', name: 'Stopwatch + Laps', icon: Clock, category: 'Utility', desc: 'High-precision timer', component: StopwatchTool },
+  { id: 'curl', name: 'cURL → fetch', icon: FileCode, category: 'Developer', desc: 'Convert curl commands instantly', component: CurlTool },
+  { id: 'mdtable', name: 'Markdown Table Maker', icon: FileCode, category: 'Developer', desc: 'Generate clean markdown tables', component: MarkdownTableTool },
+  { id: 'imageresize', name: 'Image Resizer', icon: Palette, category: 'Design', desc: 'Resize images locally', component: ImageResizeTool },
+  { id: 'browser', name: 'Browser Info', icon: Shield, category: 'Utility', desc: 'Device, screen & UA details', component: BrowserInfoTool },
+  { id: 'cron', name: 'Cron Explainer', icon: Clock, category: 'Developer', desc: 'Understand cron expressions', component: CronTool },
 ]
 
 function App() {
