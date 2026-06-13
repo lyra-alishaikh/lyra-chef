@@ -3,101 +3,457 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🌙 Lyra Chef</title>
+  <title>Lyra Chef</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
-    body { font-family: system-ui, sans-serif; background: #0f0c29; color: #fff; margin: 0; padding: 20px; }
-    .container { max-width: 900px; margin: 0 auto; }
-    h1 { color: #c0c0c0; }
-    textarea { width: 100%; height: 200px; font-family: monospace; background: #1a1733; color: #fff; border: 1px solid #444; padding: 10px; }
-    button { background: #302b63; color: #fff; border: none; padding: 10px 20px; cursor: pointer; margin: 5px; }
-    button:hover { background: #4a4680; }
-    .output { background: #1a1733; padding: 15px; margin-top: 10px; white-space: pre-wrap; font-family: monospace; border: 1px solid #444; }
-    .tool { margin-bottom: 30px; }
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600&display=swap');
+    
+    :root {
+      --accent: #6366f1;
+    }
+    
+    body {
+      font-family: 'Inter', system_ui, sans-serif;
+    }
+    
+    .font-display {
+      font-family: 'Space Grotesk', 'Inter', sans-serif;
+      font-weight: 600;
+    }
+
+    .sidebar {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .tool-card {
+      transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+
+    .nav-item {
+      transition: all 0.2s ease;
+    }
+    
+    .nav-item.active {
+      background-color: #f1e7ff;
+      color: #6366f1;
+      font-weight: 600;
+    }
+
+    .section-header {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .output-box {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    .modern-input {
+      transition: all 0.2s ease;
+    }
+    
+    .modern-input:focus {
+      outline: none;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .action-btn {
+      transition: all 0.2s ease;
+    }
+    
+    .action-btn:hover {
+      transform: translateY(-1px);
+    }
   </style>
 </head>
-<body>
-  <div class="container">
-    <h1>🌙 Lyra Chef</h1>
-    <p>A cosmic Swiss Army knife for data. Starting small, growing incrementally.</p>
+<body class="bg-zinc-50">
+  <!-- Header -->
+  <div class="border-b border-zinc-200 bg-white">
+    <div class="max-w-screen-xl mx-auto px-6 py-4 flex items-center justify-between">
+      <div class="flex items-center gap-x-3">
+        <div class="w-9 h-9 bg-indigo-600 rounded-xl flex items-center justify-center">
+          <i class="fa-solid fa-magic text-white text-xl"></i>
+        </div>
+        <div>
+          <h1 class="font-display text-2xl font-semibold tracking-tight text-zinc-900">Lyra Chef</h1>
+          <p class="text-xs text-zinc-500 -mt-0.5">Professional data toolkit</p>
+        </div>
+      </div>
+      
+      <div class="flex items-center gap-x-2 text-sm">
+        <div class="px-3 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-xs font-medium flex items-center gap-x-1.5">
+          <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+          <span>Ready</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-screen-xl mx-auto px-6 flex gap-6 pt-8">
     
-    <div class="tool">
-      <h2>JSON Viewer & Formatter</h2>
-      <textarea id="jsonInput" placeholder="Paste JSON here..."></textarea>
-      <button onclick="formatJSON()">Format & Validate</button>
-      <button onclick="minifyJSON()">Minify</button>
-      <div id="jsonOutput" class="output" style="display:none;"></div>
+    <!-- Sidebar -->
+    <div class="w-72 flex-shrink-0">
+      <div class="bg-white border border-zinc-200 rounded-3xl p-2 shadow-sm">
+        <div class="px-4 py-3">
+          <div class="text-xs font-semibold tracking-wider text-zinc-400 px-2 mb-1">TOOLS</div>
+        </div>
+        
+        <div class="space-y-1">
+          <!-- JSON Tools -->
+          <div onclick="showTool('json')" class="nav-item flex items-center gap-x-3 px-4 py-3 rounded-2xl cursor-pointer hover:bg-zinc-100 active" id="nav-json">
+            <i class="fa-solid fa-file-code w-5 text-indigo-600"></i>
+            <div>
+              <div class="font-medium text-zinc-800">JSON Tools</div>
+              <div class="text-xs text-zinc-500">Format • Validate • Minify</div>
+            </div>
+          </div>
+          
+          <!-- List Tools -->
+          <div onclick="showTool('list')" class="nav-item flex items-center gap-x-3 px-4 py-3 rounded-2xl cursor-pointer hover:bg-zinc-100" id="nav-list">
+            <i class="fa-solid fa-list w-5 text-emerald-600"></i>
+            <div>
+              <div class="font-medium text-zinc-800">List Tools</div>
+              <div class="text-xs text-zinc-500">CSV • Dedupe • Transform</div>
+            </div>
+          </div>
+          
+          <!-- Text Tools -->
+          <div onclick="showTool('text')" class="nav-item flex items-center gap-x-3 px-4 py-3 rounded-2xl cursor-pointer hover:bg-zinc-100" id="nav-text">
+            <i class="fa-solid fa-font w-5 text-amber-600"></i>
+            <div>
+              <div class="font-medium text-zinc-800">Text Tools</div>
+              <div class="text-xs text-zinc-500">Case • Sort • Clean</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="border-t border-zinc-100 my-2 mx-2"></div>
+        
+        <div class="px-4 py-2 text-xs text-zinc-400">
+          More tools coming soon
+        </div>
+      </div>
+      
+      <div class="mt-4 px-4 text-xs text-zinc-400">
+        v0.2 • Built for real work
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 min-w-0">
+      
+      <!-- JSON Tool -->
+      <div id="tool-json" class="tool-section">
+        <div class="mb-6">
+          <h2 class="text-3xl font-semibold tracking-tight text-zinc-900">JSON Tools</h2>
+          <p class="text-zinc-600 mt-1">Format, validate, and minify JSON with precision.</p>
+        </div>
+        
+        <div class="bg-white border border-zinc-200 rounded-3xl p-8">
+          <div class="grid grid-cols-1 gap-6">
+            <div>
+              <label class="block text-sm font-medium text-zinc-700 mb-2">Input</label>
+              <textarea id="jsonInput" rows="10" 
+                class="modern-input w-full border border-zinc-300 rounded-2xl px-4 py-4 text-sm focus:border-indigo-400 font-mono resize-y"
+                placeholder='{"name": "Lyra", "status": "ready"}'></textarea>
+            </div>
+            
+            <div class="flex flex-wrap gap-3">
+              <button onclick="formatJSON()" 
+                class="action-btn flex items-center gap-x-2 px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl text-sm font-medium">
+                <i class="fa-solid fa-magic"></i>
+                <span>Format & Validate</span>
+              </button>
+              <button onclick="minifyJSON()" 
+                class="action-btn flex items-center gap-x-2 px-5 py-2.5 bg-zinc-800 hover:bg-black text-white rounded-2xl text-sm font-medium">
+                <i class="fa-solid fa-compress"></i>
+                <span>Minify</span>
+              </button>
+              <button onclick="clearJSON()" 
+                class="action-btn px-5 py-2.5 border border-zinc-300 hover:bg-zinc-100 text-zinc-700 rounded-2xl text-sm font-medium">
+                Clear
+              </button>
+            </div>
+            
+            <div id="jsonOutputContainer" class="hidden">
+              <div class="flex items-center justify-between mb-2">
+                <label class="block text-sm font-medium text-zinc-700">Output</label>
+                <button onclick="copyToClipboard('jsonOutput')" 
+                  class="text-xs px-3 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-600 rounded-xl flex items-center gap-x-1">
+                  <i class="fa-solid fa-copy text-xs"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <div id="jsonOutput" 
+                class="output-box border border-zinc-200 bg-zinc-50 rounded-2xl p-5 text-sm font-mono min-h-[180px] max-h-[400px] overflow-auto"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- List Tool -->
+      <div id="tool-list" class="tool-section hidden">
+        <div class="mb-6">
+          <h2 class="text-3xl font-semibold tracking-tight text-zinc-900">List Tools</h2>
+          <p class="text-zinc-600 mt-1">Convert lists to clean CSV and more.</p>
+        </div>
+        
+        <div class="bg-white border border-zinc-200 rounded-3xl p-8">
+          <div>
+            <label class="block text-sm font-medium text-zinc-700 mb-2">Items (one per line)</label>
+            <textarea id="listInput" rows="8" 
+              class="modern-input w-full border border-zinc-300 rounded-2xl px-4 py-4 text-sm focus:border-emerald-400"
+              placeholder="apple
+banana
+orange"></textarea>
+          </div>
+          
+          <div class="mt-4 flex gap-3">
+            <button onclick="listToCSV()" 
+              class="action-btn flex items-center gap-x-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-2xl text-sm font-medium">
+              <i class="fa-solid fa-file-csv"></i>
+              <span>Convert to CSV</span>
+            </button>
+            <button onclick="clearList()" 
+              class="action-btn px-5 py-3 border border-zinc-300 hover:bg-zinc-100 text-zinc-700 rounded-2xl text-sm font-medium">
+              Clear
+            </button>
+          </div>
+          
+          <div id="listOutputContainer" class="hidden mt-6">
+            <div class="flex items-center justify-between mb-2">
+              <label class="block text-sm font-medium text-zinc-700">CSV Output</label>
+              <button onclick="copyToClipboard('listOutput')" 
+                class="text-xs px-3 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-600 rounded-xl flex items-center gap-x-1">
+                <i class="fa-solid fa-copy text-xs"></i>
+                <span>Copy</span>
+              </button>
+            </div>
+            <div id="listOutput" 
+              class="output-box border border-zinc-200 bg-zinc-50 rounded-2xl p-5 text-sm font-mono"></div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Text Tool -->
+      <div id="tool-text" class="tool-section hidden">
+        <div class="mb-6">
+          <h2 class="text-3xl font-semibold tracking-tight text-zinc-900">Text Tools</h2>
+          <p class="text-zinc-600 mt-1">Clean and transform plain text.</p>
+        </div>
+        
+        <div class="bg-white border border-zinc-200 rounded-3xl p-8">
+          <div>
+            <label class="block text-sm font-medium text-zinc-700 mb-2">Input Text</label>
+            <textarea id="textInput" rows="8" 
+              class="modern-input w-full border border-zinc-300 rounded-2xl px-4 py-4 text-sm focus:border-amber-400"
+              placeholder="Enter your text here..."></textarea>
+          </div>
+          
+          <div class="mt-4 flex flex-wrap gap-3">
+            <button onclick="capitaliseText()" 
+              class="action-btn px-5 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-2xl text-sm font-medium">
+              UPPERCASE
+            </button>
+            <button onclick="lowercaseText()" 
+              class="action-btn px-5 py-3 bg-amber-600 hover:bg-amber-700 text-white rounded-2xl text-sm font-medium">
+              lowercase
+            </button>
+            <button onclick="sortLines()" 
+              class="action-btn px-5 py-3 bg-zinc-800 hover:bg-black text-white rounded-2xl text-sm font-medium">
+              Sort Lines
+            </button>
+            <button onclick="clearText()" 
+              class="action-btn px-5 py-3 border border-zinc-300 hover:bg-zinc-100 text-zinc-700 rounded-2xl text-sm font-medium">
+              Clear
+            </button>
+          </div>
+          
+          <div id="textOutputContainer" class="hidden mt-6">
+            <div class="flex items-center justify-between mb-2">
+              <label class="block text-sm font-medium text-zinc-700">Result</label>
+              <button onclick="copyToClipboard('textOutput')" 
+                class="text-xs px-3 py-1 bg-zinc-100 hover:bg-zinc-200 text-zinc-600 rounded-xl flex items-center gap-x-1">
+                <i class="fa-solid fa-copy text-xs"></i>
+                <span>Copy</span>
+              </button>
+            </div>
+            <div id="textOutput" 
+              class="output-box border border-zinc-200 bg-zinc-50 rounded-2xl p-5 text-sm font-mono min-h-[120px]"></div>
+          </div>
+        </div>
+      </div>
+      
     </div>
   </div>
 
   <script>
+    // Tailwind script
+    function initializeTailwind() {
+      document.documentElement.style.setProperty('--accent', '#6366f1');
+    }
+    
+    function showTool(tool) {
+      // Hide all tools
+      document.querySelectorAll('.tool-section').forEach(el => el.classList.add('hidden'));
+      
+      // Show selected
+      document.getElementById('tool-' + tool).classList.remove('hidden');
+      
+      // Update nav active state
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      document.getElementById('nav-' + tool).classList.add('active');
+    }
+    
+    // JSON Functions
     function formatJSON() {
-      const input = document.getElementById('jsonInput').value;
+      const input = document.getElementById('jsonInput').value.trim();
+      const outputContainer = document.getElementById('jsonOutputContainer');
       const output = document.getElementById('jsonOutput');
+      
+      if (!input) return;
+      
       try {
         const parsed = JSON.parse(input);
         output.textContent = JSON.stringify(parsed, null, 2);
-        output.style.display = 'block';
+        outputContainer.classList.remove('hidden');
       } catch (e) {
         output.textContent = 'Invalid JSON: ' + e.message;
-        output.style.display = 'block';
+        outputContainer.classList.remove('hidden');
       }
     }
-
+    
     function minifyJSON() {
-      const input = document.getElementById('jsonInput').value;
+      const input = document.getElementById('jsonInput').value.trim();
+      const outputContainer = document.getElementById('jsonOutputContainer');
       const output = document.getElementById('jsonOutput');
+      
+      if (!input) return;
+      
       try {
         const parsed = JSON.parse(input);
         output.textContent = JSON.stringify(parsed);
-        output.style.display = 'block';
+        outputContainer.classList.remove('hidden');
       } catch (e) {
         output.textContent = 'Invalid JSON: ' + e.message;
-        output.style.display = 'block';
+        outputContainer.classList.remove('hidden');
       }
     }
+    
+    function clearJSON() {
+      document.getElementById('jsonInput').value = '';
+      document.getElementById('jsonOutputContainer').classList.add('hidden');
+    }
+    
+    // List Functions
+    function listToCSV() {
+      const input = document.getElementById('listInput').value.trim();
+      const outputContainer = document.getElementById('listOutputContainer');
+      const output = document.getElementById('listOutput');
+      
+      if (!input) return;
+      
+      const lines = input.split('\n').map(l => l.trim()).filter(Boolean);
+      output.textContent = lines.join(',');
+      outputContainer.classList.remove('hidden');
+    }
+    
+    function clearList() {
+      document.getElementById('listInput').value = '';
+      document.getElementById('listOutputContainer').classList.add('hidden');
+    }
+    
+    // Text Functions
+    function capitaliseText() {
+      const input = document.getElementById('textInput').value;
+      const outputContainer = document.getElementById('textOutputContainer');
+      const output = document.getElementById('textOutput');
+      
+      output.textContent = input.toUpperCase();
+      outputContainer.classList.remove('hidden');
+    }
+    
+    function lowercaseText() {
+      const input = document.getElementById('textInput').value;
+      const outputContainer = document.getElementById('textOutputContainer');
+      const output = document.getElementById('textOutput');
+      
+      output.textContent = input.toLowerCase();
+      outputContainer.classList.remove('hidden');
+    }
+    
+    function sortLines() {
+      const input = document.getElementById('textInput').value;
+      const outputContainer = document.getElementById('textOutputContainer');
+      const output = document.getElementById('textOutput');
+      
+      if (!input.trim()) return;
+      
+      const lines = input.split('\n').sort();
+      output.textContent = lines.join('\n');
+      outputContainer.classList.remove('hidden');
+    }
+    
+    function clearText() {
+      document.getElementById('textInput').value = '';
+      document.getElementById('textOutputContainer').classList.add('hidden');
+    }
+    
+    // Utility
+    function copyToClipboard(elementId) {
+      const element = document.getElementById(elementId);
+      navigator.clipboard.writeText(element.textContent).then(() => {
+        const originalText = element.textContent;
+        // Visual feedback
+        const btns = document.querySelectorAll('button');
+        // Simple toast
+        const toast = document.createElement('div');
+        toast.className = 'fixed bottom-4 right-4 bg-zinc-900 text-white px-4 py-2 rounded-2xl text-sm flex items-center gap-x-2';
+        toast.innerHTML = `<i class="fa-solid fa-check"></i> <span>Copied to clipboard</span>`;
+        document.body.appendChild(toast);
+        
+        setTimeout(() => {
+          toast.remove();
+        }, 2000);
+      });
+    }
+    
+    // Keyboard shortcuts
+    function setupKeyboardShortcuts() {
+      document.addEventListener('keydown', function(e) {
+        if (e.metaKey && e.key === 'Enter') {
+          const activeTool = document.querySelector('.tool-section:not(.hidden)');
+          if (activeTool) {
+            const id = activeTool.id;
+            if (id === 'tool-json') {
+              formatJSON();
+            } else if (id === 'tool-list') {
+              listToCSV();
+            }
+          }
+          e.preventDefault();
+        }
+      });
+    }
+    
+    // Initialize
+    function init() {
+      initializeTailwind();
+      setupKeyboardShortcuts();
+      
+      // Show JSON tool by default
+      document.getElementById('tool-json').classList.remove('hidden');
+      document.getElementById('nav-json').classList.add('active');
+      
+      // Demo data
+      document.getElementById('jsonInput').value = '{\n  "project": "Lyra Chef",\n  "status": "ready",\n  "version": 0.2\n}';
+    }
+    
+    window.onload = init;
   </script>
 </body>
 </html>
-
-    <div class="tool">
-      <h2>List to CSV</h2>
-      <textarea id="listInput" placeholder="One item per line..."></textarea>
-      <button onclick="listToCSV()">Convert to CSV</button>
-      <div id="listOutput" class="output" style="display:none;"></div>
-    </div>
-
-    <div class="tool">
-      <h2>Text Tools</h2>
-      <textarea id="textInput" placeholder="Enter text..."></textarea>
-      <button onclick="capitaliseText()">Capitalise</button>
-      <button onclick="sortLines()">Sort Lines</button>
-      <div id="textOutput" class="output" style="display:none;"></div>
-    </div>
-
-  <script>
-    // Existing JSON functions already in file...
-
-    function listToCSV() {
-      const input = document.getElementById('listInput').value.trim();
-      const output = document.getElementById('listOutput');
-      if (!input) return;
-      const lines = input.split('\n').map(l => l.trim()).filter(Boolean);
-      output.textContent = lines.join(',');
-      output.style.display = 'block';
-    }
-
-    function capitaliseText() {
-      const input = document.getElementById('textInput').value;
-      const output = document.getElementById('textOutput');
-      output.textContent = input.toUpperCase();
-      output.style.display = 'block';
-    }
-
-    function sortLines() {
-      const input = document.getElementById('textInput').value;
-      const output = document.getElementById('textOutput');
-      const lines = input.split('\n').sort();
-      output.textContent = lines.join('\n');
-      output.style.display = 'block';
-    }
-  </script>
