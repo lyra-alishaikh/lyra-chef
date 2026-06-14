@@ -78,6 +78,15 @@ import BrowserInfoTool from './tools/BrowserInfoTool'
 import CronTool from './tools/CronTool'
 import GridPlaygroundTool from './tools/GridPlaygroundTool'
 
+import TypeScaleTool from './tools/TypeScaleTool'
+import SpacingTool from './tools/SpacingTool'
+import AnimationPlaygroundTool from './tools/AnimationPlaygroundTool'
+import GlassmorphismTool from './tools/GlassmorphismTool'
+import ColorPaletteTool from './tools/ColorPaletteTool'
+import EasingVisualizerTool from './tools/EasingVisualizerTool'
+import BreakpointTool from './tools/BreakpointTool'
+import SVGPathTool from './tools/SVGPathTool'
+
 const tools = [
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', desc: 'Format, validate & collapsible tree', component: JSONTool },
   { id: 'regex', name: 'Regex Tester', icon: Search, category: 'Developer', desc: 'Test regex with live matches', component: RegexTool },
@@ -152,6 +161,16 @@ const tools = [
   { id: 'flex', name: 'Flexbox Playground', icon: Palette, category: 'Design', desc: 'Live flexbox visualizer', component: FlexboxTool },
   { id: 'grid', name: 'CSS Grid Playground', icon: Palette, category: 'Design', desc: 'Interactive grid builder', component: GridPlaygroundTool },
 
+  // Heavier design system tools
+  { id: 'typescale', name: 'Type Scale Generator', icon: Palette, category: 'Design', desc: 'Beautiful typography scale', component: TypeScaleTool },
+  { id: 'spacing', name: 'Spacing Scale', icon: Palette, category: 'Design', desc: 'Consistent spacing system', component: SpacingTool },
+  { id: 'animation', name: 'Animation Playground', icon: Palette, category: 'Design', desc: 'Easing + transform live preview', component: AnimationPlaygroundTool },
+  { id: 'glass', name: 'Glassmorphism Generator', icon: Palette, category: 'Design', desc: 'Backdrop blur glass cards', component: GlassmorphismTool },
+  { id: 'palette', name: 'Color Palette Generator', icon: Palette, category: 'Design', desc: 'Shades from any base color', component: ColorPaletteTool },
+  { id: 'easing', name: 'Easing Visualizer', icon: Palette, category: 'Design', desc: 'Cubic-bezier previews', component: EasingVisualizerTool },
+  { id: 'breakpoints', name: 'Breakpoint Tester', icon: Palette, category: 'Design', desc: 'Responsive container simulator', component: BreakpointTool },
+  { id: 'svgpath', name: 'SVG Path Editor', icon: Palette, category: 'Design', desc: 'Quick path + stroke editor', component: SVGPathTool },
+
   // New utility & dev tools
   { id: 'faker', name: 'Fake Data Generator', icon: User, category: 'Utility', desc: 'Names, emails, phones, addresses', component: FakerTool },
   { id: 'stopwatch', name: 'Stopwatch + Laps', icon: Clock, category: 'Utility', desc: 'High-precision timer', component: StopwatchTool },
@@ -180,24 +199,37 @@ function App() {
         <div className="border-b bg-white">
           <div className="max-w-screen-2xl mx-auto px-8 pt-16 pb-12">
             <div className="max-w-2xl">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-emerald-100 text-emerald-700 rounded-full text-sm font-medium mb-6">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 bg-indigo-100 text-indigo-700 rounded-full text-sm font-medium mb-6">
                 Professional • Private • Free
               </div>
-              <h1 className="text-7xl font-semibold tracking-tighter text-zinc-900 leading-none">
+              <h1 className="text-7xl font-semibold tracking-tighter text-slate-900 leading-none">
                 The toolkit<br />you actually want to use.
               </h1>
-              <p className="mt-6 text-2xl text-zinc-600 max-w-md">
+              <p className="mt-6 text-2xl text-slate-600 max-w-md">
                 Fast, beautiful tools that run entirely in your browser.
               </p>
+              <div className="mt-8 flex gap-3">
+                <a href="#tools" className="px-7 py-3.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl text-sm font-semibold tracking-tight transition shadow-sm">Browse all tools</a>
+                <button onClick={() => { const el = document.getElementById('tools'); el?.scrollIntoView({ behavior: 'smooth' }) }} className="px-7 py-3.5 border border-slate-200 hover:bg-white rounded-2xl text-sm font-medium">Explore catalog</button>
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="max-w-screen-2xl mx-auto px-8 py-8 border-b text-center">
-          <div className="grid grid-cols-3 gap-8">
-            <div><div className="text-4xl font-semibold">{tools.length}</div><div className="text-sm text-zinc-500">Tools</div></div>
-            <div><div className="text-4xl font-semibold">100%</div><div className="text-sm text-zinc-500">Client-side</div></div>
-            <div><div className="text-4xl font-semibold">v0.3.0</div><div className="text-sm text-zinc-500">Current version</div></div>
+        <div className="max-w-screen-2xl mx-auto px-8 py-8 border-b bg-white">
+          <div className="grid grid-cols-3 gap-8 text-center">
+            <div>
+              <div className="text-5xl font-semibold text-slate-900 tracking-tighter">{tools.length}</div>
+              <div className="text-xs uppercase tracking-[1.5px] text-slate-500 mt-1">Tools</div>
+            </div>
+            <div>
+              <div className="text-5xl font-semibold text-slate-900 tracking-tighter">100%</div>
+              <div className="text-xs uppercase tracking-[1.5px] text-slate-500 mt-1">Client-side</div>
+            </div>
+            <div>
+              <div className="text-5xl font-semibold text-slate-900 tracking-tighter">v0.4.0</div>
+              <div className="text-xs uppercase tracking-[1.5px] text-slate-500 mt-1">Current version</div>
+            </div>
           </div>
         </div>
 
@@ -214,16 +246,16 @@ function App() {
             {filteredTools.map(tool => {
               const Icon = tool.icon
               return (
-                <button key={tool.id} onClick={() => setActiveTool(tool.id)} className="group bg-white border border-zinc-200 hover:border-zinc-300 rounded-3xl p-7 text-left transition-all hover:-translate-y-0.5">
+                <button key={tool.id} onClick={() => setActiveTool(tool.id)} className="group bg-white border border-slate-200 hover:border-indigo-200 hover:shadow-lg hover:-translate-y-0.5 rounded-3xl p-7 text-left transition-all active:scale-[0.985]">
                   <div className="flex items-start justify-between">
-                    <div className="w-12 h-12 bg-zinc-100 rounded-2xl flex items-center justify-center group-hover:bg-zinc-900 group-hover:text-white transition-colors">
+                    <div className="w-11 h-11 bg-slate-100 group-hover:bg-indigo-600 group-hover:text-white text-slate-700 rounded-2xl flex items-center justify-center transition-all">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <div className="text-xs px-3 py-1 bg-zinc-100 text-zinc-600 rounded-full font-medium">{tool.category}</div>
+                    <div className="text-[10px] px-2.5 py-0.5 bg-slate-100 text-slate-500 rounded-full font-medium tracking-tight">{tool.category}</div>
                   </div>
-                  <div className="mt-6 font-semibold text-xl tracking-tight">{tool.name}</div>
-                  <div className="text-sm text-zinc-600 mt-2 leading-snug">{tool.desc}</div>
-                  <div className="mt-6 text-sm text-zinc-400 group-hover:text-zinc-900 transition-colors flex items-center gap-1">Open tool <ArrowRight className="w-3.5 h-3.5" /></div>
+                  <div className="mt-5 font-semibold text-[17px] tracking-[-0.2px] text-slate-900">{tool.name}</div>
+                  <div className="text-sm text-slate-500 mt-1.5 leading-snug line-clamp-2">{tool.desc}</div>
+                  <div className="mt-5 text-xs text-indigo-600 group-hover:text-indigo-700 flex items-center gap-1 font-medium">Open →</div>
                 </button>
               )
             })}
