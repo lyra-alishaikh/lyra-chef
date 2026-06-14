@@ -86,6 +86,11 @@ import ColorPaletteTool from './tools/ColorPaletteTool'
 import EasingVisualizerTool from './tools/EasingVisualizerTool'
 import BreakpointTool from './tools/BreakpointTool'
 import SVGPathTool from './tools/SVGPathTool'
+import ButtonStudio from './tools/ButtonStudio'
+import CardStudio from './tools/CardStudio'
+import GrainTool from './tools/GrainTool'
+import FontPairTool from './tools/FontPairTool'
+import AspectRatioTool from './tools/AspectRatioTool'
 
 const tools = [
   { id: 'json', name: 'JSON Formatter', icon: FileCode, category: 'Developer', desc: 'Format, validate & collapsible tree', component: JSONTool },
@@ -170,6 +175,13 @@ const tools = [
   { id: 'easing', name: 'Easing Visualizer', icon: Palette, category: 'Design', desc: 'Cubic-bezier previews', component: EasingVisualizerTool },
   { id: 'breakpoints', name: 'Breakpoint Tester', icon: Palette, category: 'Design', desc: 'Responsive container simulator', component: BreakpointTool },
   { id: 'svgpath', name: 'SVG Path Editor', icon: Palette, category: 'Design', desc: 'Quick path + stroke editor', component: SVGPathTool },
+
+  // Component studios & visual polish
+  { id: 'button', name: 'Button Studio', icon: Palette, category: 'Design', desc: 'Realistic button designer', component: ButtonStudio },
+  { id: 'card', name: 'Card Studio', icon: Palette, category: 'Design', desc: 'Shadow, radius, padding controls', component: CardStudio },
+  { id: 'grain', name: 'Grain Texture', icon: Palette, category: 'Design', desc: 'Subtle noise / film grain', component: GrainTool },
+  { id: 'fontpair', name: 'Font Pairing', icon: Palette, category: 'Design', desc: 'Test heading + body combinations', component: FontPairTool },
+  { id: 'aspect', name: 'Aspect Ratio Tester', icon: Palette, category: 'Design', desc: 'Common ratios with live preview', component: AspectRatioTool },
 
   // New utility & dev tools
   { id: 'faker', name: 'Fake Data Generator', icon: User, category: 'Utility', desc: 'Names, emails, phones, addresses', component: FakerTool },
